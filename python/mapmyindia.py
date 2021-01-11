@@ -2,36 +2,36 @@
 import json
 import requests
 
-'''Fetching Polyline from mapmyindia'''
+'''Fetching Polyline from MapmyIndia'''
 
-#API key for mapmyindia
-key='33g5mspbcvlr1bf9453zz5etb1x3x5n1'
+#API key for MapmyIndia
+key=''
 
 #Source and Destination Coordinates
-#Dallas, TX
-source_longitude='-96.7970'
-source_latitude='32.7767'
-#New York, NY
-destination_longitude='-74.0060'
-destination_latitude='40.7128'
+#New Delhi
+source_longitude='77.18609677688849'
+source_latitude='28.68932119156764'
+#Mumbai
+destination_longitude='72.89902799500808'
+destination_latitude='19.092580173664984'
 
-#Query mapmyindia with Key and Source-Destination coordinates
+#Query MapmyIndia with Key and Source-Destination coordinates
 url='https://apis.mapmyindia.com/advancedmaps/v1/{a}/route_adv/driving/{b},{c};{d},{e}?geometries=polyline&overview=full'.format(a=key,b=source_longitude,c=source_latitude,d=destination_longitude,e=destination_latitude)
 
 #converting the response to json
 response=requests.get(url).json()
 
 #checking for errors in response 
-if str(response).find('message')==-1:
-    pass
+if str(response).find('message')>-1:
+    raise Exception("{}: {} , check latitude,longitude perhaps".format(response['code'],response['message']))
+elif str(response).find('responsecode')>-1 and response['responsecode']=='401':
+    raise Exception("{} {}".format(response['error_code'],response['error_description']))
 else:
-    raise Exception(response['message'])
-
-#The response is a dict where Polyline is inside first element named "routes" , first element is a list , go to 1st element there
-#you will find a key named "geometry" which is essentially the Polyline''' 
-
-#Extracting polyline
-polyline=response["routes"][0]['geometry']
+    #The response is a dict where Polyline is inside first element named "routes" , first element is a list , go to 1st element there
+    #you will find a key named "geometry" which is essentially the Polyline''' 
+    
+    #Extracting polyline
+    polyline=response["routes"][0]['geometry']
 
 
 
