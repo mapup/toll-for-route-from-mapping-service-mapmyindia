@@ -5,7 +5,7 @@ import requests
 '''Fetching Polyline from mapmyindia'''
 
 #API key for mapmyindia
-key=''
+key='33g5mspbcvlr1bf9453zz5etb1x3x5n1'
 
 #Source and Destination Coordinates
 #Dallas, TX
@@ -16,7 +16,7 @@ destination_longitude='-74.0060'
 destination_latitude='40.7128'
 
 #Query mapmyindia with Key and Source-Destination coordinates
-url='https://maps.googleapis.com/maps/api/directions/json?origin={a},${b}&destination=${c},${d}&key=${e}'.format(a=source_latitude,b=source_longitude,c=destination_latitude,d=destination_longitude,e=key)
+url='https://apis.mapmyindia.com/advancedmaps/v1/{a}/route_adv/driving/{b},{c};{d},{e}?geometries=polyline&overview=full'.format(a=key,b=source_longitude,c=source_latitude,d=destination_longitude,e=destination_latitude)
 
 #converting the response to json
 response=requests.get(url).json()
