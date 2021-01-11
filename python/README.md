@@ -1,4 +1,4 @@
-# [Mapbox](https://www.mapbox.com/)
+# [MapmyIndia](https://www.mapmyindia.com/)
 
 ### Get token to access Mapbox APIs (if you have an API token skip this)
 #### Step 1: Login/Signup
