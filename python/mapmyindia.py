@@ -1,27 +1,22 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jan  7 20:50:45 2021
-
-@author: pavelc@mapup.ai
-"""
-
 #Importing modules
 import json
 import requests
 
-'''---------------------------------------------------Fetching Polyline from Mapbox-------------------------------------------------------------'''
+'''Fetching Polyline from mapmyindia'''
 
-#API key for Mapbox
-token=''
+#API key for mapmyindia
+key=''
 
 #Source and Destination Coordinates
+#Dallas, TX
 source_longitude='-96.7970'
 source_latitude='32.7767'
+#New York, NY
 destination_longitude='-74.0060'
 destination_latitude='40.7128'
 
-#Query Mapbox with Key and Source-Destination coordinates
-url='https://api.mapbox.com/directions/v5/mapbox/driving/{a},{b};{c},{d}?geometries=polyline&access_token={e}&overview=full'.format(a=source_longitude,b=source_latitude,c=destination_longitude,d=destination_latitude,e=token)
+#Query mapmyindia with Key and Source-Destination coordinates
+url='https://maps.googleapis.com/maps/api/directions/json?origin={a},${b}&destination=${c},${d}&key=${e}'.format(a=source_latitude,b=source_longitude,c=destination_latitude,d=destination_longitude,e=key)
 
 #converting the response to json
 response=requests.get(url).json()
@@ -38,10 +33,10 @@ else:
 #Extracting polyline
 polyline=response["routes"][0]['geometry']
 
-'''-----------------------------------------------------------------------------------------------------------------------------------------------'''
 
 
-'''------------------------------------------------------Calling Tollguru API---------------------------------------------------------------------'''
+
+'''Calling Tollguru API'''
 
 #API key for Tollguru
 Tolls_Key = ''
@@ -55,10 +50,9 @@ headers = {
             'x-api-key': Tolls_Key
           }
 params = {
-            'source': "mapbox",
-            'polyline': polyline ,                      #this is polyline that we fetched from the mapping service      
-            #'polyline': 'some_wrong_polyline_' ,      
-            'vehicleType': '2AxlesAuto',                #'''TODO - Need to users list of acceptable values for vehicle type'''
+            'source': "mapmyindia",
+            'polyline': polyline ,                      #  this is polyline that we fetched from the mapping service     
+            'vehicleType': '2AxlesAuto',                #'''TODO - Need to provide users a slist of acceptable values for vehicle type'''
             'departure_time' : "2021-01-05T09:46:08Z"   #'''TODO - Specify time formats'''
         }
 
@@ -73,4 +67,3 @@ if str(response_tollguru).find('message')==-1:
 else:
     raise Exception(response_tollguru['message'])
 
-'''--------------------------------------------------------------------------------------------------------------------------------------------'''
