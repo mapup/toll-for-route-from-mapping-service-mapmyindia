@@ -9,7 +9,7 @@ namespace mapmyIndia
         public static void Main()
         {
             // Create a request for the URL.
-            string api_key="zsrz71km9hpjwzf5x3ussubuecoce3gq";
+            string api_key="";
             string source_longitude="80.131123";
             string source_latitude="28.552413";
             string destination_longitude="77.113091";
@@ -18,7 +18,7 @@ namespace mapmyIndia
             Console.WriteLine(url);
             WebRequest request = WebRequest.Create(url);
             //WebRequest request = WebRequest.Create(
-            //  "https://apis.mapmyindia.com/advancedmaps/v1/zsrz71km9hpjwzf5x3ussubuecoce3gq/route_adv/driving/80.131123,28.552413;77.113091,28.544649?steps=false&rtype=1");
+            //  "https://apis.mapmyindia.com/advancedmaps/v1/api_key/route_adv/driving/80.131123,28.552413;77.113091,28.544649?steps=false&rtype=1");
             // If required by the server, set the credentials.
             // Get the response.
             WebResponse response = request.GetResponse();
