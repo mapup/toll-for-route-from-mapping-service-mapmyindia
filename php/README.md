@@ -55,12 +55,9 @@ if ($err) {
 
 //extracting polyline from the JSON response..
 $data_mapmyindia = json_decode($response, true);
-$data_new = $data_mapmyindia['routes'];
-$new_data = $data_new['0'];
-$pol_data = $new_data['geometry'];
 
 //polyline..
-$polyline_mapmyindia = $pol_data;
+$polyline_mapmyindia = $data_mapmyindia['routes']['0']['geometry'];
 
 ```
 
