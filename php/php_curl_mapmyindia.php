@@ -35,12 +35,9 @@ if ($err) {
 
 //extracting polyline from the JSON response..
 $data_mapmyindia = json_decode($response, true);
-$data_new = $data_mapmyindia['routes'];
-$new_data = $data_new['0'];
-$pol_data = $new_data['geometry'];
 
 //polyline..
-$polyline_mapmyindia = $pol_data;
+$polyline_mapmyindia = $data_mapmyindia['routes']['0']['geometry'];
 
 
 //using tollguru API..
@@ -51,7 +48,7 @@ curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
 
 $postdata = array(
-	"source" => "google",
+	"source" => "here",
 	"polyline" => $polyline_mapmyindia
 );
 
@@ -87,7 +84,6 @@ if ($err) {
 }
 
 //response from tollguru..
-var_dump(json_decode($response, true));
-// $data = var_dump(json_decode($response, true));
-//print_r($data);
+$data = var_dump(json_decode($response, true));
+print_r($data);
 ?>
