@@ -1,10 +1,10 @@
 require 'HTTParty'
 require 'json'
 
-# Source Details - New Delhi coordinates
-SOURCE = { longitude: '77.18609677688849', latitude: '28.68932119156764' }
-# Destination Details - Mumbai coordinates
-DESTINATION = { longitude: '72.89902799500808', latitude: '19.092580173664984' }
+# Source Details - New Delhi Lat-Long coordinates
+SOURCE = { longitude: '77.18609', latitude: '28.68932' }
+# Destination Details - Mumbai Lat-long coordinates
+DESTINATION = { longitude: '72.89902', latitude: '19.09258' }
 
 # GET Request to MapmyIndia for Polyline
 KEY = ENV['MAPMYINDIA_KEY']
