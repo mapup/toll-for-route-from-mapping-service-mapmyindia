@@ -60,7 +60,6 @@ polyline_from_mapmyindia=get_polyline_from_mapmyindia(source_longitude,source_la
 #Step 3 : Get rates from TollGuru API
 rates_from_tollguru=get_rates_from_tollguru(polyline_from_mapmyindia)
 
-#Printing a dictionary of rates for all the accepted payment methods
 #Print the rates of all the available modes of payment
 if rates_from_tollguru=={}:
     print("The route doesn't have tolls")
