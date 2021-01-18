@@ -54,7 +54,7 @@ def get_rates_from_tollguru(polyline):
 from csv import reader,writer
 import time
 temp_list=[]
-with open('testCases.csv','r') as f:
+with open('testCases_with_geocode.csv','r') as f:
     csv_reader=reader(f)
     for count,i in enumerate(csv_reader):
         #if count>2:
@@ -68,7 +68,7 @@ with open('testCases.csv','r') as f:
                 polyline=get_polyline_from_mapmyindia(source_longitude,source_latitude,destination_longitude,destination_latitude)
                 i.append(polyline)
             except:
-                i.append(None) 
+                i.append("Routing Error") 
             
             start=time.time()
             try:
