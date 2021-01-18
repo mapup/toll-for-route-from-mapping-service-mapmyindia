@@ -1,4 +1,5 @@
-# toll-mapmyindia
+# toll-MapmyIndia
+
 Use these code examples to extend mapping capabilities of Mapbox by adding toll information to the route information.
 
 Select the language folder to see code in the language. \
