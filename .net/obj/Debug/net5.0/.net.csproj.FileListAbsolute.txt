@@ -1,0 +1,16 @@
+G:\Shared drives\a_00_Common\00_github\_net\test\toll_mapmyindia\00_test_toll-mapmyindia-1\.net\bin\Debug\net5.0\.net.exe
+G:\Shared drives\a_00_Common\00_github\_net\test\toll_mapmyindia\00_test_toll-mapmyindia-1\.net\bin\Debug\net5.0\.net.deps.json
+G:\Shared drives\a_00_Common\00_github\_net\test\toll_mapmyindia\00_test_toll-mapmyindia-1\.net\bin\Debug\net5.0\.net.runtimeconfig.json
+G:\Shared drives\a_00_Common\00_github\_net\test\toll_mapmyindia\00_test_toll-mapmyindia-1\.net\bin\Debug\net5.0\.net.runtimeconfig.dev.json
+G:\Shared drives\a_00_Common\00_github\_net\test\toll_mapmyindia\00_test_toll-mapmyindia-1\.net\bin\Debug\net5.0\.net.dll
+G:\Shared drives\a_00_Common\00_github\_net\test\toll_mapmyindia\00_test_toll-mapmyindia-1\.net\bin\Debug\net5.0\ref\.net.dll
+G:\Shared drives\a_00_Common\00_github\_net\test\toll_mapmyindia\00_test_toll-mapmyindia-1\.net\bin\Debug\net5.0\.net.pdb
+G:\Shared drives\a_00_Common\00_github\_net\test\toll_mapmyindia\00_test_toll-mapmyindia-1\.net\obj\Debug\net5.0\.net.csprojAssemblyReference.cache
+G:\Shared drives\a_00_Common\00_github\_net\test\toll_mapmyindia\00_test_toll-mapmyindia-1\.net\obj\Debug\net5.0\.net.GeneratedMSBuildEditorConfig.editorconfig
+G:\Shared drives\a_00_Common\00_github\_net\test\toll_mapmyindia\00_test_toll-mapmyindia-1\.net\obj\Debug\net5.0\.net.AssemblyInfoInputs.cache
+G:\Shared drives\a_00_Common\00_github\_net\test\toll_mapmyindia\00_test_toll-mapmyindia-1\.net\obj\Debug\net5.0\.net.AssemblyInfo.cs
+G:\Shared drives\a_00_Common\00_github\_net\test\toll_mapmyindia\00_test_toll-mapmyindia-1\.net\obj\Debug\net5.0\.net.csproj.CoreCompileInputs.cache
+G:\Shared drives\a_00_Common\00_github\_net\test\toll_mapmyindia\00_test_toll-mapmyindia-1\.net\obj\Debug\net5.0\.net.dll
+G:\Shared drives\a_00_Common\00_github\_net\test\toll_mapmyindia\00_test_toll-mapmyindia-1\.net\obj\Debug\net5.0\ref\.net.dll
+G:\Shared drives\a_00_Common\00_github\_net\test\toll_mapmyindia\00_test_toll-mapmyindia-1\.net\obj\Debug\net5.0\.net.pdb
+G:\Shared drives\a_00_Common\00_github\_net\test\toll_mapmyindia\00_test_toll-mapmyindia-1\.net\obj\Debug\net5.0\.net.genruntimeconfig.cache
