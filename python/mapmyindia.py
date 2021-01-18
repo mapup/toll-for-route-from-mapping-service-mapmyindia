@@ -61,4 +61,9 @@ polyline_from_mapmyindia=get_polyline_from_mapmyindia(source_longitude,source_la
 rates_from_tollguru=get_rates_from_tollguru(polyline_from_mapmyindia)
 
 #Printing a dictionary of rates for all the accepted payment methods
-print(f"The rates are \n {rates_from_tollguru}")
+#Print the rates of all the available modes of payment
+if rates_from_tollguru=={}:
+    print("The route doesn't have tolls")
+else:
+    print(f"The rates are \n {rates_from_tollguru}")
+    
