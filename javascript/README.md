@@ -1,58 +1,59 @@
-# [Mapbox](https://www.mapbox.com/)
+# [MapmyIndia](https://www.mapmyindia.com/api/)
 
-### Get token to access Mapbox APIs (if you have an API token skip this)
-#### Step 1: Login/Signup
-* Create an accont to access [Mapbox Account Dashboard](https://account.mapbox.com/)
-* go to signup/login link https://account.mapbox.com/auth/signin/
+### Get API key to access MapmyIndia (if you have an API key skip this)
+#### Step 1: Get API Key
+* Create an account to access [MapmyIndia API Dashboard](https://www.mapmyindia.com/api/dashboard)
+* go to signup/login link https://www.mapmyindia.com/api/login
 
-#### Step 2: Creating a token
-* You will be presented with a default token.
-* If you want you can create an application specific token.
+#### Step 2: Getting you key
+* Once you are logged in, go to https://www.mapmyindia.com/api/dashboard
+* You will be presented with different keys, the key that we are looking
+  for is `REST API Key for Web/Android/iOS`
 
-
-To get the route polyline make a GET request on https://api.mapbox.com/directions/v5/mapbox/driving/${source.longitude},${source.latitude};${destination.longitude},${destination.latitude}?geometries=polyline&access_token=${token}&overview=full
+With this in place, make a GET request: https://apis.mapmyindia.com/advancedmaps/v1/${key}/route_adv/driving/${source.longitude},${source.latitude};${destination.longitude},${destination.latitude}?geometries=polyline&overview=full
 
 ### Note:
 * we will be sending `geometries` as `polyline` and `overview` as `full`.
 * Setting overview as full sends us complete route. Default value for `overview` is `simplified`, which is an approximate (smoothed) path of the resulting directions.
-* Mapbox accepts source and destination, as semicolon seperated
-  `${longitude,latitude}`.
+* MapmyIndia accepts source and destination, as semicolon seperated
 
 ```javascript
+
 const request = require("request");
 
-// Token from mapbox
-const token = process.env.MAPBOX_TOKEN;
-const tollguruKey = process.env.TOLLGURU_KEY;
+// REST API key from MapmyIndia
+const key = process.env.MAPMYINDIA_KEY;
+const tollguruKey = process.env.TOLLGURU_KEY
 
-// Dallas, TX
+// New Delhi
 const source = {
-    longitude: '-96.7970',
-    latitude: '32.7767',
+    longitude: '77.18609677688849',
+    latitude: '28.68932119156764',
 }
 
-// New York, NY
+// Mumbai
 const destination = {
-    longitude: '-74.0060',
-    latitude: '40.7128'
+    longitude: '72.89902799500808',
+    latitude: '19.092580173664984'
 };
 
-const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${source.longitude},${source.latitude};${destination.longitude},${destination.latitude}?geometries=polyline&access_token=${token}&overview=full`
+const url = `https://apis.mapmyindia.com/advancedmaps/v1/${key}/route_adv/driving/${source.longitude},${source.latitude};${destination.longitude},${destination.latitude}?geometries=polyline&overview=full`
 
 const head = arr => arr[0]
 // JSON path "$..geometry"
 const getGeometry = body => body.routes.map(x => x.geometry)
 const getPolyline = body => head(getGeometry(JSON.parse(body)));
+
 const getRoute = (cb) => request.get(url, cb);
 
 const handleRoute = (e, r, body) => console.log(getPolyline(body));
 
-getRoute(handleRoute);
+getRoute(handleRoute)
 ```
 
 Note:
 
-We extracted the polyline for a route from Mapbox API
+We extracted the polyline for a route from MapmyIndia API
 
 We need to send this route polyline to TollGuru API to receive toll information
 
@@ -64,13 +65,17 @@ We need to send this route polyline to TollGuru API to receive toll information
 * Similarly, `departure_time` is important for locations where tolls change based on time-of-the-day.
 
 the last line can be changed to following
+
 ```javascript
 
 const tollguruUrl = 'https://dev.tollguru.com/v1/calc/route';
 
 const handleRoute = (e, r, body) =>  {
-  console.log(body)
+
+  console.log(body);
   const _polyline = getPolyline(body);
+  console.log(_polyline);
+
   request.post(
     {
       url: tollguruUrl,
@@ -79,7 +84,7 @@ const handleRoute = (e, r, body) =>  {
         'x-api-key': tollguruKey
       },
       body: JSON.stringify({
-        source: "mapbox",
+        source: "mapmyindia",
         polyline: _polyline,
         vehicleType: "2AxlesAuto",
         departure_time: "2021-01-05T09:46:08Z"
@@ -90,9 +95,16 @@ const handleRoute = (e, r, body) =>  {
       console.log(body)
     }
   )
-}
+};
 
 getRoute(handleRoute);
 ```
 
-Whole working code can be found in index.js file.
+The working code can be found in index.js file.
+
+## License
+ISC License (ISC). Copyright 2020 &copy;TollGuru. https://tollguru.com/
+
+Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
