@@ -50,7 +50,7 @@ def get_rates_from_tollguru(polyline):
         raise Exception(response_tollguru['message'])
 
 '''Program Starts'''
-#Step 1 : Get Sourcer and Destination name and fetch their geocodes
+#Step 1 : Get Source and Destination name and fetch their geocodes
 source_longitude,source_latitude=77.18609677688849,28.68932119156764                     #New Delhi
 destination_longitude,destination_latitude=72.89902799500808,19.09258017366498           #Mumbai
 
