@@ -13,14 +13,14 @@ import (
 
 //Source Coordinates
 const (
-	source_longitude float64 = 77.18609677688849
-	source_latitude float64 = 28.68932119156764
+	source_longitude float32 = 77.18609
+	source_latitude float32 = 28.68932
 )
 
 // Destination Coordinates
 const (
-	destination_longitude float64 = 72.89902799500808
-	destination_latitude float64 = 19.092580173664984
+	destination_longitude float32 = 72.89902
+	destination_latitude float32 = 19.09258
 )
 func main() {
 
@@ -31,7 +31,7 @@ func main() {
 
 	url := fmt.Sprintf("https://apis.mapmyindia.com/advancedmaps/v1/%s/route_adv/driving/%v,%v;%v,%v?geometries=polyline&overview=full", key_MapmyIndia, source_longitude, source_latitude, destination_longitude, destination_latitude)
 	spaceClient := http.Client{
-		Timeout: time.Second * 15, // Timeout after 2 seconds
+		Timeout: time.Second * 15, // Timeout after 15 seconds
 	}
 
 	req, err := http.NewRequest(http.MethodGet, url, nil)

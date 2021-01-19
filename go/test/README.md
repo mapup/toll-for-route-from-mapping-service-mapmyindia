@@ -30,7 +30,7 @@ const (
 // Destination Coordinates
 const (
 	destination_longitude float32 = 72.89902
-	destination_latitude float32 = 19.09258
+	destination_latitude float32 = 19.092580
 )
 
 	// Key for MapmyIndia
@@ -120,7 +120,11 @@ url_tollguru := "https://dev.tollguru.com/v1/calc/route"
 	fmt.Println("\nresponse Body:\n", string(body))
 ```
 
-The working code can be found in MapmyIndia.go file.
+The working code can be found in test.go file under testing folder.
+
+In order to run different test cases the user should fill the lat long for both source and destination in the testing CSV file at respective location. In case the file is present in a differnet location enter the path to access the CSV.
+
+
 
 ## License
 ISC License (ISC). Copyright 2020 &copy;TollGuru. https://tollguru.com/
