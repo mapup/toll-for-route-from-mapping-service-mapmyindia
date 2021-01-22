@@ -2,7 +2,7 @@
 Use these code examples to extend mapping capabilities of [MapmyIndia](https://www.mapmyindia.com/api/advanced-maps/doc/route-api) by adding toll information to the route information.
 
 ### After adding toll information you will be able to see tolls for the following 
-#### vehicle types
+#### Vehicle types
 * Car/ Jeep/ Van -> 2AxlesAuto
 * Bike -> 2AxlesMoto
 * Pickup truck/ Light commercial vehicles -> 2AxlesLCV
@@ -10,12 +10,12 @@ Use these code examples to extend mapping capabilities of [MapmyIndia](https://w
 * Bus -> 2AxlesBus (2-axles Bus)
 * HCM, EME -> 2AxlesHCMEME
 
-#### payment types
+#### Payment types
 * FasTag
 * Cash
 
-#### return tolls, monthly pass tolls and discounts
+#### Return tolls, monthly pass tolls and discounts
 You will get retun trip toll and monthly pass toll information and discount information for locals (if available)
 
-#### barriers and ticket systems
+#### Barriers and ticket systems
 You will get tolls for ticket systems and barriers including national highways (NHAI), state highways and local tolls
