@@ -21,7 +21,7 @@ curl_setopt($mapmyindia, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($mapmyindia, CURLOPT_URL, $url);
 curl_setopt($mapmyindia, CURLOPT_RETURNTRANSFER, true);
 
-//getting response from googleapis..
+//getting response from mapmyindia api...
 $response = curl_exec($mapmyindia);
 $err = curl_error($mapmyindia);
 
