@@ -1,8 +1,8 @@
 # toll-mapmyindia
-Click on the folders above to see examples to extend mapping capabilities of [MapmyIndia](https://www.mapmyindia.com/api/advanced-maps/doc/route-api)  by adding toll information from [**TollGuru**](https://tollguru.com/) to the route information from TomTom.
+Click on the folders above to see examples to extend mapping capabilities of [MapmyIndia](https://www.mapmyindia.com/api/advanced-maps/doc/route-api)  by adding toll information from [**TollGuru**](https://tollguru.com/) to the route information from MapmyIndia.
 
 The toll information has following [key features](https://tollguru.com/developers/features):
-### Support for [geographies](https://github.com/mapup/toll-tomtom/wiki/3.-Countries-supported-by-TollGuru) 
+### Support for [geographies](https://github.com/mapup/toll-mapmyindia/wiki/3.-Countries-supported-by-TollGuru) 
 * North America - United States, Canada, Mexico
 * Europe - UK, France, Spain, Portugal, Ireland, Netherlands, Denmark, Norway, Sweden, Italy, Germany
 * Australia - Australia
