@@ -35,8 +35,8 @@ Support for barrier, ticket system and distance based tolling configurations
 ### Support for [other mapping services](https://github.com/mapup)
 [See the Mapping services list](https://github.com/mapup/toll-mapmyindia/wiki/2.-Mapping-platforms-supported-by-TollGuru) for all mapping platforms supported. You can edit the **source** argument to send polyline from another mapping service.
 
-### Support for trucks based on [height, weight, harardous goods, etc.](https://github.com/mapup/toll-mapmyindia/wiki/4.-Supported-trucking-parameter-in-TollGuru)
-You can receive tolls based on vehicle height, weight etc., while calculating toll: "truckType","shippedHazardousGoods","tunnelCategory","truckRestrictionPenalty" and [more](https://github.com/mapup/toll-mapmyindia/wiki/4.-Supported-trucking-parameter-in-TollGuru).
+### Support for trucks based on [height, weight, harardous goods, etc.](https://github.com/mapup/toll-mapmyindia/wiki/4.-Trucking-parameters-supported-by-TollGuru)
+You can receive tolls based on vehicle height, weight etc., while calculating toll: "truckType","shippedHazardousGoods","tunnelCategory","truckRestrictionPenalty" and [more](https://github.com/mapup/toll-mapmyindia/wiki/4.-Trucking-parameters-supported-by-TollGuru).
 
 
 
