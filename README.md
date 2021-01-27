@@ -1,21 +1,44 @@
 # toll-mapmyindia
-Use these code examples to extend mapping capabilities of [MapmyIndia](https://www.mapmyindia.com/api/advanced-maps/doc/route-api) by adding toll information to the route information.
+Click on the folders above to see examples to extend mapping capabilities of [MapmyIndia](https://www.mapmyindia.com/api/advanced-maps/doc/route-api)  by adding toll information from [**TollGuru**](https://tollguru.com/) to the route information from TomTom.
 
-### After adding toll information you will be able to see tolls for the following 
-#### Vehicle types
-* Car/ Jeep/ Van -> 2AxlesAuto
-* Bike -> 2AxlesMoto
-* Pickup truck/ Light commercial vehicles -> 2AxlesLCV
-* Trucks from 2-axles to 7- axles (2-axles truck), 
-* Bus -> 2AxlesBus (2-axles Bus)
-* HCM, EME -> 2AxlesHCMEME
+The toll information has following [key features](https://tollguru.com/developers/features):
+### Support for [geographies](https://github.com/mapup/toll-tomtom/wiki/Countries-supported-by-TollGuru) 
+* North America - United States, Canada, Mexico
+* Europe - UK, France, Spain, Portugal, Ireland, Netherlands, Denmark, Norway, Sweden, Italy, Germany
+* Australia - Australia
+* Asia - India
+* Latin America - Peru, Colombia, Argentina, Chile
 
-#### Payment types
-* FasTag
-* Cash
+### Based on vehicles in use in each country, [vehicle type support](https://github.com/mapup/toll-tomtom/wiki/Supported-vehicle-type-list-for-TollGuru-for-respective-continents)
+* Car, SUV or Pickup truck. You can specify number of axles including axles in trailers
+* Carpool
+* Taxi
+* Rideshare
+* Motorcycle
+* Truck
+* Bus
+* Recreational vehicle (RV), motorhome, caravan, van
 
-#### Return tolls, monthly pass tolls and discounts
-You will get retun trip toll and monthly pass toll information and discount information for locals (if available)
+### Rates for all the available payment options in local currencies
+* Tag transponder (including primary and secondary transponders)
+* cash
+* licence plate
+* credit card
+* prepaid
 
-#### Barriers and ticket systems
-You will get tolls for ticket systems and barriers including national highways (NHAI), state highways and local tolls
+### Time based tolls
+You can specify "departure_time" as DateTime (string) or Timestamp (number) to provide you with most accurate toll rates based on time of day/week/month/year, including tolls for express lanes where tolls change as quickly as every five minutes
+
+### All types of toll systems
+Support for barrier, ticket system and distance based tolling configurations
+
+### Support for [other mapping services](https://github.com/mapup)
+[See the Mapping services list](https://github.com/mapup/toll-tomtom/wiki/Mapping-platforms-supported-by-TollGuru) for all mapping platforms supported. You can edit the **source** argument to send polyline from another mapping service.
+
+### Support for trucks based on [height, weight, harardous goods, etc.](https://github.com/mapup/toll-tomtom/wiki/Supported-trucking-parameter-in-TollGuru)
+You can receive tolls based on vehicle height, weight etc., while calculating toll: "truckType","shippedHazardousGoods","tunnelCategory","truckRestrictionPenalty" and [more](https://github.com/mapup/toll-tomtom/wiki/Supported-trucking-parameter-in-TollGuru).
+
+
+
+
+
