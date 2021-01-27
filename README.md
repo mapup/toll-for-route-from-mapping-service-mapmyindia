@@ -9,7 +9,7 @@ The toll information has following [key features](https://tollguru.com/developer
 * Asia - India
 * Latin America - Peru, Colombia, Argentina, Chile
 
-### Based on vehicles in use in each country, [vehicle type support](https://github.com/mapup/toll-tomtom/wiki/Supported-vehicle-type-list-for-TollGuru-for-respective-continents)
+### Based on vehicles in use in each country, [vehicle type support](https://github.com/mapup/toll-mapmyindia/wiki/Supported-vehicle-type-list-for-TollGuru-for-respective-continents)
 * Car, SUV or Pickup truck. You can specify number of axles including axles in trailers
 * Carpool
 * Taxi
@@ -33,10 +33,10 @@ You can specify "departure_time" as DateTime (string) or Timestamp (number) to p
 Support for barrier, ticket system and distance based tolling configurations
 
 ### Support for [other mapping services](https://github.com/mapup)
-[See the Mapping services list](https://github.com/mapup/toll-tomtom/wiki/Mapping-platforms-supported-by-TollGuru) for all mapping platforms supported. You can edit the **source** argument to send polyline from another mapping service.
+[See the Mapping services list](https://github.com/mapup/toll-mapmyindia/wiki/Mapping-platforms-supported-by-TollGuru) for all mapping platforms supported. You can edit the **source** argument to send polyline from another mapping service.
 
-### Support for trucks based on [height, weight, harardous goods, etc.](https://github.com/mapup/toll-tomtom/wiki/Supported-trucking-parameter-in-TollGuru)
-You can receive tolls based on vehicle height, weight etc., while calculating toll: "truckType","shippedHazardousGoods","tunnelCategory","truckRestrictionPenalty" and [more](https://github.com/mapup/toll-tomtom/wiki/Supported-trucking-parameter-in-TollGuru).
+### Support for trucks based on [height, weight, harardous goods, etc.](https://github.com/mapup/toll-mapmyindia/wiki/Supported-trucking-parameter-in-TollGuru)
+You can receive tolls based on vehicle height, weight etc., while calculating toll: "truckType","shippedHazardousGoods","tunnelCategory","truckRestrictionPenalty" and [more](https://github.com/mapup/toll-mapmyindia/wiki/Supported-trucking-parameter-in-TollGuru).
 
 
 
