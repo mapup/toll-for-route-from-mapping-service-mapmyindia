@@ -1,16 +1,23 @@
 <?php
 //using mapmyindia API
 
+$MAPMYINDIA_API_KEY = getenv('MAPMYINDIA_API_KEY');
+$MAPMYINDIA_API_URL = "https://apis.mapmyindia.com/advancedmaps/v1";
+
+$TOLLGURU_API_KEY = getenv('TOLLGURU_API_KEY');
+$TOLLGURU_API_URL = "https://apis.tollguru.com/toll/v2";
+$POLYLINE_ENDPOINT = "complete-polyline-from-mapping-service";
+
 //Source and Destination Coordinates..
 //New Delhi coordinates
 $source_longitude='77.18609677688849';
 $source_latitude='28.68932119156764';
+
 // Mumbai coordinates
 $destination_longitude='72.89902799500808';
 $destination_latitude='19.092580173664984';
-$key = 'mapmyindia_key';
 
-$url = 'https://apis.mapmyindia.com/advancedmaps/v1/'.$key.'/route_adv/driving/'.$source_longitude.','.$source_latitude.';'.$destination_longitude.','.$destination_latitude.'?geometries=polyline&overview=full';
+$url = $MAPMYINDIA_API_URL.'/'.$MAPMYINDIA_API_KEY.'/route_adv/driving/'.$source_longitude.','.$source_latitude.';'.$destination_longitude.','.$destination_latitude.'?geometries=polyline&overview=full';
 
 //connection..
 $mapmyindia = curl_init();
@@ -48,7 +55,7 @@ curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
 
 $postdata = array(
-	"source" => "here",
+	"source" => "mapmyindia",
 	"polyline" => $polyline_mapmyindia
 );
 
@@ -56,20 +63,20 @@ $postdata = array(
 $encode_postData = json_encode($postdata);
 
 curl_setopt_array($curl, array(
-CURLOPT_URL => "https://dev.tollguru.com/v1/calc/route",
-CURLOPT_RETURNTRANSFER => true,
-CURLOPT_ENCODING => "",
-CURLOPT_MAXREDIRS => 10,
-CURLOPT_TIMEOUT => 30,
-CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-CURLOPT_CUSTOMREQUEST => "POST",
+  CURLOPT_URL => $TOLLGURU_API_URL . "/" . $POLYLINE_ENDPOINT,
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "POST",
 
 
-//sending mapmyindia polyline to tollguru
-CURLOPT_POSTFIELDS => $encode_postData,
-CURLOPT_HTTPHEADER => array(
-				      "content-type: application/json",
-				      "x-api-key: tollguru_api_key"),
+  //sending mapmyindia polyline to tollguru
+  CURLOPT_POSTFIELDS => $encode_postData,
+  CURLOPT_HTTPHEADER => array(
+    "content-type: application/json",
+    "x-api-key: " . $TOLLGURU_API_KEY),
 ));
 
 $response = curl_exec($curl);

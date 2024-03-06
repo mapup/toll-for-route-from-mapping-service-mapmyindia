@@ -1,26 +1,20 @@
 const request = require("request");
 const polyline = require("polyline");
 
-// REST API key from MapmyIndia
-const key = process.env.MAPMYINDIA_API_KEY;
-const tollguruKey = process.env.TOLLGURU_KEY;
 
-// Dallas, TX
-const source = {
-    longitude: '-96.7970',
-    latitude: '32.7767',
-}
+const MAPMYINDIA_API_KEY = process.env.MAPMYINDIA_API_KEY;
+const MAPMYINDIA_API_URL = "https://apis.mapmyindia.com/advancedmaps/v1";
 
-// New York, NY
-const destination = {
-    longitude: '-74.0060',
-    latitude: '40.7128'
-};
+const TOLLGURU_API_KEY = process.env.TOLLGURU_API_KEY;
+const TOLLGURU_API_URL = "https://apis.tollguru.com/toll/v2";
+const POLYLINE_ENDPOINT = "complete-polyline-from-mapping-service";
 
-const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${source.latitude},${source.longitude}&destination=${destination.latitude},${destination.longitude}&key=${key}`;
+const source = { latitude: 28.68932119156764, longitude: 77.18609677688849 }; // New Delhi
+const destination = { latitude: 19.092580173664984, longitude: 72.89902799500808, }; // Mumbai
 
 
-const head = arr => arr[0];
+const url = `${MAPMYINDIA_API_URL}/${MAPMYINDIA_API_KEY}/route_adv/driving/${source.longitude},${source.latitude};${destination.longitude},${destination.latitude}?geometries=polyline&overview=full`
+
 const flatten = (arr, x) => arr.concat(x);
 
 // JSON path "$..points"
@@ -40,9 +34,9 @@ const getRoute = (cb) => request.get(url, cb);
 //const handleRoute = (e, r, body) => console.log(getPolyline(body));
 //getRoute(handleRoute)
 
-const tollguruUrl = 'https://dev.tollguru.com/v1/calc/route';
+const tollguruUrl = `${TOLLGURU_API_URL}/${POLYLINE_ENDPOINT}`;
 
-const handleRoute = (e, r, body) =>  {
+const handleRoute = (e, r, body) => {
 
   console.log(body);
   const _polyline = getPolyline(body);
@@ -53,7 +47,7 @@ const handleRoute = (e, r, body) =>  {
       url: tollguruUrl,
       headers: {
         'content-type': 'application/json',
-        'x-api-key': tollguruKey
+        'x-api-key': TOLLGURU_API_KEY
       },
       body: JSON.stringify({ source: "mapmyindia", polyline: _polyline })
     },
