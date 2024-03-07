@@ -22,12 +22,21 @@ destination_longitude, destination_latitude = (
     19.09258017366498,
 )
 
-"""Extrating Polyline from MapmyIndia"""
+# Explore https://tollguru.com/toll-api-docs to get best of all the parameter that tollguru has to offer
+request_parameters = {
+    "vehicle": {
+        "type": "2AxlesAuto",
+    },
+    # Visit https://en.wikipedia.org/wiki/Unix_time to know the time format
+    "departure_time": "2021-01-05T09:46:08Z",
+}
 
 
 def get_polyline_from_mapmyindia(
     source_longitude, source_latitude, destination_longitude, destination_latitude
 ):
+    """Extrating Polyline from MapmyIndia"""
+
     # Query MapmyIndia with Key and Source-Destination coordinates
     url = "{a}/{b}/route_adv/driving/{c},{d};{e},{f}?geometries=polyline&overview=full".format(
         b=MAPMYINDIA_API_KEY,
@@ -55,20 +64,17 @@ def get_polyline_from_mapmyindia(
         return polyline_from_mapmyindia
 
 
-"""Calling Tollguru API"""
-
-
 def get_rates_from_tollguru(polyline):
+    """Calling Tollguru API"""
+
     # Tollguru querry url
     Tolls_URL = f"{TOLLGURU_API_URL}/{POLYLINE_ENDPOINT}"
     # Tollguru resquest parameters
     headers = {"Content-type": "application/json", "x-api-key": TOLLGURU_API_KEY}
     params = {
-        # explore https://tollguru.com/developers/docs/ to get best off all the parameter that tollguru offers
+        **request_parameters,
         "source": "mapmyindia",
         "polyline": polyline,  #  this is polyline that we fetched from the mapping service
-        "vehicleType": "2AxlesAuto",  #'''Visit https://tollguru.com/developers/docs/#vehicle-types to know more options'''
-        "departure_time": "2021-01-05T09:46:08Z",  #'''Visit https://en.wikipedia.org/wiki/Unix_time to know the time format'''
     }
     # Requesting Tollguru with parameters
     response_tollguru = requests.post(Tolls_URL, json=params, headers=headers).json()

@@ -17,6 +17,15 @@ $source_latitude='28.68932119156764';
 $destination_longitude='72.89902799500808';
 $destination_latitude='19.092580173664984';
 
+// Explore https://tollguru.com/toll-api-docs to get the best of all the parameters that tollguru has to offer
+$request_parameters = array(
+    "vehicle" => array(
+        "type" => "2AxlesAuto",
+    ),
+    // Visit https://en.wikipedia.org/wiki/Unix_time to know the time format
+    "departure_time" => "2021-01-05T09:46:08Z",
+);
+
 $url = $MAPMYINDIA_API_URL.'/'.$MAPMYINDIA_API_KEY.'/route_adv/driving/'.$source_longitude.','.$source_latitude.';'.$destination_longitude.','.$destination_latitude.'?geometries=polyline&overview=full';
 
 //connection..
@@ -56,7 +65,8 @@ curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
 $postdata = array(
 	"source" => "mapmyindia",
-	"polyline" => $polyline_mapmyindia
+  "polyline" => $polyline_mapmyindia,
+  ...$request_parameters,
 );
 
 //json encoding source and polyline to send as postfields..

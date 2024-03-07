@@ -12,6 +12,14 @@ const POLYLINE_ENDPOINT = "complete-polyline-from-mapping-service";
 const source = { latitude: 28.68932119156764, longitude: 77.18609677688849 }; // New Delhi
 const destination = { latitude: 19.092580173664984, longitude: 72.89902799500808, }; // Mumbai
 
+// Explore https://tollguru.com/toll-api-docs to get the best of all the parameters that tollguru has to offer
+const requestParameters = {
+  "vehicle": {
+    "type": "2AxlesAuto",
+  },
+  // Visit https://en.wikipedia.org/wiki/Unix_time to know the time format
+  "departure_time": "2021-01-05T09:46:08Z",
+}
 
 const url = `${MAPMYINDIA_API_URL}/${MAPMYINDIA_API_KEY}/route_adv/driving/${source.longitude},${source.latitude};${destination.longitude},${destination.latitude}?geometries=polyline&overview=full`
 
@@ -49,7 +57,11 @@ const handleRoute = (e, r, body) => {
         'content-type': 'application/json',
         'x-api-key': TOLLGURU_API_KEY
       },
-      body: JSON.stringify({ source: "mapmyindia", polyline: _polyline })
+      body: JSON.stringify({
+        source: "mapmyindia",
+        polyline: _polyline,
+        ...requestParameters,
+      })
     },
     (e, r, body) => {
       console.log(e);

@@ -31,6 +31,15 @@ const (
 	destination_longitude float32 = 72.89902799500808
 )
 
+// Explore https://tollguru.com/toll-api-docs to get the best of all the parameters that tollguru has to offer
+var requestParams = map[string]interface{}{
+	"vehicle": map[string]interface{}{
+		"type": "2AxlesAuto",
+	},
+	// Visit https://en.wikipedia.org/wiki/Unix_time to know the time format
+	"departure_time": "2021-01-05T09:46:08Z",
+}
+
 func main() {
 
 	//	Getting polyline from MapmyIndia
@@ -75,12 +84,16 @@ func main() {
 
 	url_tollguru := fmt.Sprintf("%s/%s", TOLLGURU_API_URL, POLYLINE_ENDPOINT)
 
-	requestBody, err := json.Marshal(map[string]string{
-		"source":         "mapmyindia",
-		"polyline":       polyline,
-		"vehicleType":    "2AxlesAuto",
-		"departure_time": "2021-01-05T09:46:08Z",
-	})
+	params := map[string]interface{}{
+		"source":   "mapmyindia",
+		"polyline": polyline,
+	}
+
+	for k, v := range requestParams {
+		params[k] = v
+	}
+
+	requestBody, err := json.Marshal(params)
 
 	request, err := http.NewRequest("POST", url_tollguru, bytes.NewBuffer(requestBody))
 	request.Header.Set("x-api-key", TOLLGURU_API_URL)
