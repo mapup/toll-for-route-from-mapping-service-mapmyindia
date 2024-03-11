@@ -11,25 +11,41 @@ import (
 	"time"
 )
 
-//Source Coordinates
-const (
-	source_longitude float32 = 77.18609
-	source_latitude float32 = 28.68932
+var (
+	MAPMYINDIA_API_KEY string = os.Getenv("MAPMYINDIA_API_KEY")
+	TOLLGURU_API_KEY   string = os.Getenv("TOLLGURU_API_KEY")
 )
 
-// Destination Coordinates
 const (
-	destination_longitude float32 = 72.89902
-	destination_latitude float32 = 19.09258
+	MAPMYINDIA_API_URL = "https://apis.mapmyindia.com/advancedmaps/v1"
+
+	TOLLGURU_API_URL  = "https://apis.tollguru.com/toll/v2"
+	POLYLINE_ENDPOINT = "complete-polyline-from-mapping-service"
+
+	// New Delhi
+	source_latitude  float32 = 28.68932119156764
+	source_longitude float32 = 77.18609677688849
+
+	// Mumbai
+	destination_latitude  float32 = 19.092580173664984
+	destination_longitude float32 = 72.89902799500808
 )
+
+// Explore https://tollguru.com/toll-api-docs to get the best of all the parameters that tollguru has to offer
+var requestParams = map[string]interface{}{
+	"vehicle": map[string]interface{}{
+		"type": "2AxlesAuto",
+	},
+	// Visit https://en.wikipedia.org/wiki/Unix_time to know the time format
+	"departure_time": "2021-01-05T09:46:08Z",
+}
+
 func main() {
 
 	//	Getting polyline from MapmyIndia
 
 	// Key for MapmyIndia
-	key_MapmyIndia := os.Getenv("MAPMYINDIA_KEY")
-
-	url := fmt.Sprintf("https://apis.mapmyindia.com/advancedmaps/v1/%s/route_adv/driving/%v,%v;%v,%v?geometries=polyline&overview=full", key_MapmyIndia, source_longitude, source_latitude, destination_longitude, destination_latitude)
+	url := fmt.Sprintf("%s/%s/route_adv/driving/%v,%v;%v,%v?geometries=polyline&overview=full", MAPMYINDIA_API_URL, MAPMYINDIA_API_KEY, source_longitude, source_latitude, destination_longitude, destination_latitude)
 	spaceClient := http.Client{
 		Timeout: time.Second * 15, // Timeout after 15 seconds
 	}
@@ -66,20 +82,21 @@ func main() {
 
 	// Tollguru API request
 
-	url_tollguru := "https://dev.tollguru.com/v1/calc/route"
+	url_tollguru := fmt.Sprintf("%s/%s", TOLLGURU_API_URL, POLYLINE_ENDPOINT)
 
-	// key for Tollguru
-	key_tollguru := os.Getenv("Tollgurukey")
+	params := map[string]interface{}{
+		"source":   "mapmyindia",
+		"polyline": polyline,
+	}
 
-	requestBody, err := json.Marshal(map[string]string{
-		"source":         "mapmyindia",
-		"polyline":       polyline,
-		"vehicleType":    "2AxlesAuto",
-		"departure_time": "2021-01-05T09:46:08Z",
-	})
+	for k, v := range requestParams {
+		params[k] = v
+	}
+
+	requestBody, err := json.Marshal(params)
 
 	request, err := http.NewRequest("POST", url_tollguru, bytes.NewBuffer(requestBody))
-	request.Header.Set("x-api-key", key_tollguru)
+	request.Header.Set("x-api-key", TOLLGURU_API_URL)
 	request.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}

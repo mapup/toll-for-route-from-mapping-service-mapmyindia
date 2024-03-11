@@ -12,15 +12,25 @@ import (
 	"strconv"
 	"time"
 )
+
 var (
-	source_longitude string
-	source_latitude string
+	MAPMYINDIA_API_KEY string = os.Getenv("MAPMYINDIA_API_KEY")
+	TOLLGURU_API_KEY   string = os.Getenv("TOLLGURU_API_KEY")
 )
 
-// Destination Coordinates
+const (
+	MAPMYINDIA_API_URL = "https://apis.mapmyindia.com/advancedmaps/v1"
+
+	TOLLGURU_API_URL  = "https://apis.tollguru.com/toll/v2"
+	POLYLINE_ENDPOINT = "complete-polyline-from-mapping-service"
+)
+
 var (
+	source_longitude string
+	source_latitude  string
+
 	destination_longitude string
-	destination_latitude string
+	destination_latitude  string
 )
 
 // Reading the CSV file for test cases
@@ -35,17 +45,15 @@ func readCsvFile(filePath string) [][]string {
 	r := csv.NewReader(csvfile)
 	records, err := r.ReadAll()
 	if err != nil {
-		log.Fatal("Unable to parse file as CSV for " , err)
+		log.Fatal("Unable to parse file as CSV for ", err)
 	}
 
 	return records
 
 }
-//
-func main()  {
+
+func main() {
 	records := readCsvFile("File Path")
-	token := os.Getenv("MAPMYINDIA_TOKEN")
-	token_tollguru := os.Getenv("Tollgurukey")
 
 	for i := 1; i < len(records); i++ {
 		source_longitude, err := strconv.ParseFloat(records[i][6], 8)
@@ -53,8 +61,7 @@ func main()  {
 		destination_longitude, err := strconv.ParseFloat(records[i][8], 8)
 		destination_latitude, err := strconv.ParseFloat(records[i][7], 8)
 
-
-		url := fmt.Sprintf("https://apis.mapmyindia.com/advancedmaps/v1/%s/route_adv/driving/%v,%v;%v,%v?geometries=polyline&overview=full", token, source_longitude, source_latitude, destination_longitude, destination_latitude)
+		url := fmt.Sprintf("%s/%s/route_adv/driving/%v,%v;%v,%v?geometries=polyline&overview=full", MAPMYINDIA_API_URL, MAPMYINDIA_API_KEY, source_longitude, source_latitude, destination_longitude, destination_latitude)
 		spaceClient := http.Client{
 			Timeout: time.Second * 15, // Timeout after 15 seconds
 		}
@@ -88,22 +95,19 @@ func main()  {
 
 		polyline := result["routes"].([]interface{})[0].(map[string]interface{})["geometry"].(string)
 
-
 		// Tollguru API request
 
-		url_tollguru := "https://dev.tollguru.com/v1/calc/route"
-
-
+		url_tollguru := fmt.Sprintf("%s/%s", TOLLGURU_API_URL, POLYLINE_ENDPOINT)
 
 		requestBody, err := json.Marshal(map[string]string{
-			"source":         "mapbox",
+			"source":         "mapmyindia",
 			"polyline":       polyline,
 			"vehicleType":    "2AxlesAuto",
 			"departure_time": "2021-01-05T09:46:08Z",
 		})
 
 		request, err := http.NewRequest("POST", url_tollguru, bytes.NewBuffer(requestBody))
-		request.Header.Set("x-api-key", token_tollguru)
+		request.Header.Set("x-api-key", TOLLGURU_API_KEY)
 		request.Header.Set("Content-Type", "application/json")
 
 		client := &http.Client{}
@@ -125,5 +129,6 @@ func main()  {
 		}
 
 		toll := cost["route"].(map[string]interface{})["costs"].(map[string]interface{})["cash"]
-		fmt.Printf("The toll rate for Source Longitude: %v  : Source Latitude: %v :Destination Longitude: %v, Destination Latitude: %v is %v\n",source_longitude,source_latitude,destination_longitude,destination_latitude,toll)
-	}}
+		fmt.Printf("The toll rate for Source Longitude: %v  : Source Latitude: %v :Destination Longitude: %v, Destination Latitude: %v is %v\n", source_longitude, source_latitude, destination_longitude, destination_latitude, toll)
+	}
+}
