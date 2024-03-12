@@ -8,8 +8,8 @@ $TOLLGURU_API_KEY = getenv('TOLLGURU_API_KEY');
 $TOLLGURU_API_URL = "https://apis.tollguru.com/toll/v2";
 $POLYLINE_ENDPOINT = "complete-polyline-from-mapping-service";
 
-//Source and Destination Coordinates..
-//New Delhi coordinates
+// From and To locations
+// New Delhi
 $source_longitude='77.18609677688849';
 $source_latitude='28.68932119156764';
 
@@ -28,7 +28,7 @@ $request_parameters = array(
 
 $url = $MAPMYINDIA_API_URL.'/'.$MAPMYINDIA_API_KEY.'/route_adv/driving/'.$source_longitude.','.$source_latitude.';'.$destination_longitude.','.$destination_latitude.'?geometries=polyline&overview=full';
 
-//connection..
+// Connection
 $mapmyindia = curl_init();
 
 curl_setopt($mapmyindia, CURLOPT_SSL_VERIFYHOST, false);
@@ -37,7 +37,7 @@ curl_setopt($mapmyindia, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($mapmyindia, CURLOPT_URL, $url);
 curl_setopt($mapmyindia, CURLOPT_RETURNTRANSFER, true);
 
-//getting response from mapmyindia api...
+// Getting response from MapMyIndia API
 $response = curl_exec($mapmyindia);
 $err = curl_error($mapmyindia);
 
@@ -49,19 +49,17 @@ if ($err) {
 	  echo "200 : OK\n";
 }
 
-//extracting polyline from the JSON response..
+// Extracting polyline from the JSON response
 $data_mapmyindia = json_decode($response, true);
 
-//polyline..
+// Polyline
 $polyline_mapmyindia = $data_mapmyindia['routes']['0']['geometry'];
 
-
-//using tollguru API..
+// Using TollGuru API
 $curl = curl_init();
 
 curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-
 
 $postdata = array(
 	"source" => "mapmyindia",
@@ -69,7 +67,7 @@ $postdata = array(
   ...$request_parameters,
 );
 
-//json encoding source and polyline to send as postfields..
+// JSON encoding source and polyline to send as postfields
 $encode_postData = json_encode($postdata);
 
 curl_setopt_array($curl, array(
@@ -82,7 +80,7 @@ curl_setopt_array($curl, array(
   CURLOPT_CUSTOMREQUEST => "POST",
 
 
-  //sending mapmyindia polyline to tollguru
+  // Sending MapMyIndia polyline to TollGuru
   CURLOPT_POSTFIELDS => $encode_postData,
   CURLOPT_HTTPHEADER => array(
     "content-type: application/json",
@@ -100,7 +98,7 @@ if ($err) {
 	  echo "200 : OK\n";
 }
 
-//response from tollguru..
+// Response from TollGuru
 $data = var_dump(json_decode($response, true));
 print_r($data);
 ?>

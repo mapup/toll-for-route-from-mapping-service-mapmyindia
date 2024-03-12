@@ -39,9 +39,6 @@ const getPolyline = body => polyline.encode(getPoints(JSON.parse(body)));
 
 const getRoute = (cb) => request.get(url, cb);
 
-//const handleRoute = (e, r, body) => console.log(getPolyline(body));
-//getRoute(handleRoute)
-
 const tollguruUrl = `${TOLLGURU_API_URL}/${POLYLINE_ENDPOINT}`;
 
 const handleRoute = (e, r, body) => {
