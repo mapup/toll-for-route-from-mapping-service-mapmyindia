@@ -31,7 +31,6 @@ request_parameters = {
     "departure_time": "2021-01-05T09:46:08Z",
 }
 
-
 def get_polyline_from_mapmyindia(
     source_longitude, source_latitude, destination_longitude, destination_latitude
 ):
@@ -45,9 +44,9 @@ def get_polyline_from_mapmyindia(
         e=destination_longitude,
         f=destination_latitude,
     )
-    # converting the response to json
+    # Converting the response to JSON
     response = requests.get(url).json()
-    # checking for errors in response
+    # Checking for errors in response
     if str(response).find("message") > -1:
         raise Exception(
             "{}: {} , check latitude,longitude perhaps".format(
@@ -67,18 +66,19 @@ def get_polyline_from_mapmyindia(
 def get_rates_from_tollguru(polyline):
     """Calling Tollguru API"""
 
-    # Tollguru querry url
+    # TollGuru query URL
     Tolls_URL = f"{TOLLGURU_API_URL}/{POLYLINE_ENDPOINT}"
-    # Tollguru resquest parameters
+    # TollGuru request parameters
     headers = {"Content-type": "application/json", "x-api-key": TOLLGURU_API_KEY}
     params = {
         **request_parameters,
         "source": "mapmyindia",
         "polyline": polyline,  #  this is polyline that we fetched from the mapping service
     }
-    # Requesting Tollguru with parameters
+
+    # Requesting TollGuru with parameters
     response_tollguru = requests.post(Tolls_URL, json=params, headers=headers).json()
-    # checking for errors or printing rates
+    # Checking for errors or printing rates
     if str(response_tollguru).find("message") == -1:
         return response_tollguru["route"]["costs"]
     else:

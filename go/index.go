@@ -42,7 +42,7 @@ var requestParams = map[string]interface{}{
 
 func main() {
 
-	//	Getting polyline from MapmyIndia
+	//	Getting polyline from MapMyIndia
 
 	// Key for MapmyIndia
 	url := fmt.Sprintf("%s/%s/route_adv/driving/%v,%v;%v,%v?geometries=polyline&overview=full", MAPMYINDIA_API_URL, MAPMYINDIA_API_KEY, source_longitude, source_latitude, destination_longitude, destination_latitude)
@@ -80,7 +80,7 @@ func main() {
 	polyline := result["routes"].([]interface{})[0].(map[string]interface{})["geometry"].(string)
 	fmt.Printf("\n\n%v\n\n", polyline)
 
-	// Tollguru API request
+	// TollGuru API request
 
 	url_tollguru := fmt.Sprintf("%s/%s", TOLLGURU_API_URL, POLYLINE_ENDPOINT)
 
